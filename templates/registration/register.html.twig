@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+{% block body %}
+{% for flash_error in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+{% endfor %}
+<div class="db-middle">
+  <h1 class="db-center">Firewrite</h1>
+  <span class="db-center">Register</span>
+  <form action="{{ path('app_register') }}" method="post" class="db-form db-panel db-border db-round">
+    <p>
+      <label for="email">
+        Email
+        <input type="text" id="email" name="email" class="db-input" required/>
+      </label>
+    </p>
+    <p>
+      <label for="username">
+        Username
+        <input type="text" id="username" name="username" class="db-input" required/>
+      </label>
+    </p>
+    <p>
+      <label for="password">
+        Password
+        <input type="password" id="password" name="password" class="db-input" minlength="6" maxlength="4096" required/>
+      </label>
+    </p>
+    <p>
+      <label for="agree_terms">
+        <input type="checkbox" id="agree_terms" name="agree_terms" required/>
+        Agree to Terms of Service
+      </label>
+    </p>
+    <p>
+      <button type="submit" class="db-button">Register</button>
+    </p>
+  </form>
+</div>
+{% endblock %}
