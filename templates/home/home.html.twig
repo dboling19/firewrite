@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Home!{% endblock %}
+{% block body %}
+
+{{ include('navbar.html.twig')}}
+<div class="db-container db-half">
+  {% for article in articles %}
+    <li class="db-card db-panel">
+      <h4>{{ article.title }}</h4>
+      <span class="db-subtitle">{{ article.login.username ~ ' ' ~ article.date|format_date() }}</span>
+      <p>{{ article.body }}</p>
+    </li>
+  {% endfor %}
+</div>
+{% endblock %}

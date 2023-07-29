@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}Write{% endblock %}
+{% block body %}
+
+{{ include('navbar.html.twig') }}
+<div class="db-panel">
+  <div class="db-card db-twothird">
+    <form action="{{ path('create_article') }}" method="post" class="db-panel">
+      <p>
+        <input type="text" name="title" class="db-input" style="width:20%;" value="Untitled Article">
+      </p>
+      <p>
+        <textarea name="body" class="db-input"></textarea>
+      </p>
+      <p>
+        <button type="submit" class="db-button">Publish Article</button>
+        <button type="submit" class="db-button">Save Draft</button>
+      </p>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -21,6 +21,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@mui/material": "^5.14.2",
         "nord": "^0.2.1",
         "sass-loader": "^13.2.2"
     }

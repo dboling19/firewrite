@@ -4,63 +4,95 @@ namespace App\Controller;
 
 use App\Entity\Login;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use Symfony\Component\Mailer\MailerInterface;
+
 
 class RegistrationController extends AbstractController
 {
-  private EmailVerifier $emailVerifier;
+  private EntityManagerInterface $em;
+  private MailerInterface $mailer;
 
-  public function __construct(EmailVerifier $emailVerifier)
+  public function __construct(EntityManagerInterface $em, MailerInterface $mailer)
   {
-    $this->emailVerifier = $emailVerifier;
+    $this->em = $em;
+    $this->mailer = $mailer;
   }
 
   
+  /**
+   * Controls user registration
+   * 
+   * @author Daniel Boling
+   */
   #[Route('/register', name: 'app_register')]
-  public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+  public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
   {
-    if ($request->request->all()) {
-      $params = $request->request->all();
-      $user = new Login();
-      $user->setEmail($params['email']);
-      $user->setUsername($params['username']);
-      // encode the plain password
-      $user->setPassword(
-        $userPasswordHasher->hashPassword(
-          $user,
-          $params['password'],
-        )
-      );
-
-      $entityManager->persist($user);
-      $entityManager->flush();
-
-      // generate a signed url and email it to the user
-      $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-        (new TemplatedEmail())
-          ->from('dbdanielbboling70@gmail.com')
-          ->to($user->getEmail())
-          ->subject('Please Confirm your Email')
-          ->htmlTemplate('registration/confirmation_email.html.twig')
-      );
-      // do anything else you need here, like send an email
-
-      return $this->redirectToRoute('app_register');
+    if (!$request->request->all()) {
+      return $this->render('registration/register.html.twig');
     }
 
-    return $this->render('registration/register.html.twig');
+    $params = $request->request->all();
+    $user = new Login();
+    $user->setEmail($params['email']);
+    $user->setUsername($params['username']);
+    // encode the plain password
+    $user->setPassword(
+      $userPasswordHasher->hashPassword(
+        $user,
+        $params['password'],
+      )
+    );
+
+    $this->em->persist($user);
+    $this->em->flush();
+
+    $signature_components = $verifyEmailHelper->generateSignature(
+      'app_verify_email',
+      $user->getId(),
+      $user->getEmail(),
+      ['id' => $user->getId()],
+    );
+
+    $email = (new TemplatedEmail())
+      ->from('dbdanielbboling70@gmail.com')
+      ->to('dbolingconsulting@gmail.com')
+      ->subject('Please Confirm Your Email')
+      ->htmlTemplate('registration/confirmation_email.html.twig')
+    ;
+
+    $this->mailer->send($email);
+    // generate a signed url and email it to the user
+    // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+    //   (new TemplatedEmail())
+    //     ->from('dbdanielbboling70@gmail.com')
+    //     ->to($user->getEmail())
+    //     ->subject('Please Confirm your Email')
+    //     ->htmlTemplate('registration/confirmation_email.html.twig')
+    // );
+    // do anything else you need here, like send an email
+
+    return $this->redirectToRoute('app_login');
   }
 
+
+  /**
+   * Controls account verification
+   * 
+   * @author Daniel Boling
+   */
   #[Route('/verify/email', name: 'app_verify_email')]
   public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
   {
@@ -81,3 +113,6 @@ class RegistrationController extends AbstractController
     return $this->redirectToRoute('app_register');
   }
 }
+
+
+// EOF
