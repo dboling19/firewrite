@@ -19,8 +19,14 @@
       {{ include('navbar.html.twig') }}
       {% block content %}{% endblock %}
       <noscript>Please enable Javascript to use this page.  Most elements require JS to run correctly.</noscript>
-      {% for flash_error in app.flashes('success') %}
-        <span class="db-flash-message" role="alert">{{ flash_error }}</span>
+      {% for label, messages in app.flashes %}
+        {% for message in messages %}
+          {% if label == 'success' %}
+            <span class="db-flash-message db-notif" role="alert">{{ message }}</span>
+          {% else %}
+            <span class="db-flash-message db-error" role="alert">{{ message }}</span>
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     {% endblock %}
   </body>

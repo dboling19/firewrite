@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+<div class="db-panel db-twothird">
+  <div class="db-card">
+    <div class="db-title">{{ article.title }}</div>
+    <div class="db-subtitle">{{ article.datetime|format_date() }}</div>
+    <div class="db-panel">{{ article.body }}</div>
+    <div class="db-panel">
+      {% for tag in article.tags %}
+        <span class="db-tag-label">{{ tag.tag.name }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="db-card">
+    <div class="db-subtitle">{{ article.user.username }}</div>
+  </div>
+</div>
+<div class="db-third db-panel">
+  {% include('comment/comment_layout.html.twig') %}
+  {% include('comment/comment_form.html.twig') %}
+</div>
+{% endblock content %}

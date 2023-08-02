@@ -20,11 +20,11 @@ class ArticleTag
 
     #[ORM\ManyToOne(targetEntity: "Article", inversedBy: "tags")]
     #[ORM\JoinColumn(nullable: false)]
-    private Collection $article;
+    private $article;
 
     #[ORM\ManyToOne(targetEntity: "Tag", inversedBy: "articles")]
     #[ORM\JoinColumn(nullable: false)]
-    private Collection $tag;
+    private $tag;
 
     #[ORM\Column(type: 'datetime', nullable: false)]
     private ?Datetime $datetime;
