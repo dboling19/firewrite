@@ -24,7 +24,7 @@ class Article
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Login $login = null;
+    private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
@@ -66,14 +66,14 @@ class Article
         return $this;
     }
 
-    public function getLogin(): ?login
+    public function getUser(): ?user
     {
-        return $this->login;
+        return $this->user;
     }
 
-    public function setLogin(?login $login): self
+    public function setUser(?user $user): self
     {
-        $this->login = $login;
+        $this->user = $user;
 
         return $this;
     }

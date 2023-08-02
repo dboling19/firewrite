@@ -1,0 +1,11 @@
+{% apply inline_css(source('@styles/dboling.scss')) %}
+  <h3>Welcome to Firewrite, {{ user.username }}</h3>
+  <p>
+    You signed up for Firewrite as <code>{{ user.username }}</code> with email <code>{{ user.email }}</code>. 
+  </p>
+  <p>
+    Please confirm your email address. <br><br>
+    <a class="db-button" href="{{ signedUrl|raw }}" style="width:fit-content;">Verify Email</a>
+    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+  </p>
+{% endapply %}

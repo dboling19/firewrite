@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Error{% endblock %}
+{% block content %}
+<div class="db-middle">
+  <h1 class="db-center">Firewrite</h1>
+  <div class="db-center db-panel">
+    <div class="db-error">
+      <b>Error:</b> Your email is not verified.  Please verify your email to continue.
+    </div>
+    <br>
+    <a class="db-button" href="{{ path('app_request_verify_email') }}">Resend Email Verification</a>
+    <a class="db-button" href="{{ path('app_logout') }}">Logout Instead</a>
+  </div>
+</div>
+{% endblock %}

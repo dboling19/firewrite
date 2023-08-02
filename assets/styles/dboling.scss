@@ -178,6 +178,10 @@ html * {
     width:25%;
   }
 
+  .db-fifth {
+    width:20%;
+  }
+
   .db-threequarter {
     width:75%;
   }
@@ -305,6 +309,16 @@ html * {
     color:$nord6;
     padding:10px 8px;
     width:fit-content;
+  }
+
+  .db-flash-message {
+    background-color:$nord11;
+    color:$nord6;
+    padding:10px 8px;
+    width:fit-content;
+    position:absolute;
+    top:20px;
+    right:20px;
   }
 
   .db-bar {

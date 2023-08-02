@@ -13,18 +13,18 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 class EmailVerifier
 {
     public function __construct(
-        private VerifyEmailHelperInterface $verifyEmailHelper,
+        private VerifyEmailHelperInterface $email_verifier_helper,
         private MailerInterface $mailer,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $em,
     ) {
     }
 
     public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
     {
-        $signatureComponents = $this->verifyEmailHelper->generateSignature(
+        $signatureComponents = $this->email_verifier_helper->generateSignature(
             $verifyEmailRouteName,
             $user->getId(),
-            $user->getEmail()
+            $user->getEmail(),
         );
 
         $context = $email->getContext();
@@ -42,11 +42,14 @@ class EmailVerifier
      */
     public function handleEmailConfirmation(Request $request, UserInterface $user): void
     {
-        $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+        $this->email_verifier_helper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
-        $user->setIsVerified(true);
+        $current_roles = $user->getRoles();
+        $roles[] = 'ROLE_VERIFIED';
+        $new_roles = array_merge($current_roles, $roles); 
+        $user->setRoles(array_unique($new_roles));
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->em->persist($user);
+        $this->em->flush();
     }
 }

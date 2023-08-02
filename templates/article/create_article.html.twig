@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block title %}Write{% endblock %}
-{% block body %}
-
-{{ include('navbar.html.twig') }}
+{% block title %}New Article{% endblock %}
+{% block content %}
 <div class="db-panel">
   <div class="db-card db-twothird">
     <form action="{{ path('create_article') }}" method="post" class="db-panel">
@@ -19,6 +17,4 @@
     </form>
   </div>
 </div>
-
-
 {% endblock %}

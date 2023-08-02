@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<form action="{{ path('app_login') }}" method="post" class="db-form db-panel db-border db-middle db-round db-fifth">
+  <p>
+    <label for="username">
+      Email
+      <input type="text" id="username" name="_username" value="{{ last_username }}" class="db-input" required>
+    </label>
+  </p>
+  <p>
+    <label for="password">
+      Password
+      <input type="password" id="password" name="_password" class="db-input" required>
+    </label>
+  </p>
+  <p>
+    <input type="checkbox" class="db-checkbox"  id="_remember_me" name="_remember_me">
+    <label for="_remember_me">Remember Me</label>
+  <p>
+    {% if error %}
+      <span class="db-error">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+    {% endif %}
+  </p>
+  <p>
+    <button type="submit" class="db-button">Login</button>
+    <a href="{{ path('app_register') }}" style="font-size:12px;text-decoration:none;">Register Here</a>
+  </p>
+</form>
+{% endblock %}

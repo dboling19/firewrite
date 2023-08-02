@@ -7,7 +7,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\Login
+                class: App\Entity\User
                 property: email
     firewalls:
         dev:
@@ -20,6 +20,20 @@ security:
               login_path: app_login
               check_path: app_login
 
+            remember_me:
+              secret: '%kernel.secret%'
+
+            logout:
+              path: app_logout
+              target: app_login
+
+            entry_point: App\Security\AuthenticationEntryPoint
+            access_denied_handler: App\Security\AccessDeniedHandler
+
+            login_throttling:
+              max_attempts: 5
+              interval: '1 second'
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -31,6 +45,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/articles, roles: ROLE_VERIFIED }
 
 when@test:
     security:
