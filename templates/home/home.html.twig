@@ -6,7 +6,9 @@
     <li class="db-card db-panel">
       <h4>{{ article.title }}</h4>
       <span class="db-subtitle">{{ article.user.username ~ ' ' ~ article.date|format_date() }}</span>
-      <p>{{ article.body }}</p>
+      {% for tag in article.tags %}
+        <p>{{ tag.name }}</p>
+      {% endfor %}
     </li>
   {% endfor %}
 </div>

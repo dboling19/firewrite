@@ -16,21 +16,22 @@ class Article
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $body = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?User $user;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    private ?\DateTimeInterface $date;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'article')]
-    private Collection $tags;
+    #[ORM\OneToMany(targetEntity: "ArticleTag", mappedBy: "article")]
+    #[ORM\JoinColumn(nullable: false)]
+    private $tags;
 
     public function __construct()
     {
@@ -47,7 +48,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): static
     {
         $this->title = $title;
 
@@ -59,19 +60,19 @@ class Article
         return $this->body;
     }
 
-    public function setBody(?string $body): self
+    public function setBody(?string $body): static
     {
         $this->body = $body;
 
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
@@ -83,7 +84,7 @@ class Article
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
 
@@ -91,27 +92,30 @@ class Article
     }
 
     /**
-     * @return Collection<int, Tag>
+     * @return Collection<int, ArticleTag>
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function addTag(Tag $tag): self
+    public function addTag(ArticleTag $tag): static
     {
         if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
-            $tag->addArticle($this);
+            $tag->setArticle($this);
         }
 
         return $this;
     }
 
-    public function removeTag(Tag $tag): self
+    public function removeTag(ArticleTag $tag): static
     {
         if ($this->tags->removeElement($tag)) {
-            $tag->removeArticle($this);
+            // set the owning side to null (unless already changed)
+            if ($tag->getArticle() === $this) {
+                $tag->setArticle(null);
+            }
         }
 
         return $this;

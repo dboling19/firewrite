@@ -20,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180, unique: true, nullable: false)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,13 +29,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: false)]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class)]
     private Collection $articles;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $username = null;
 
     public function __construct()

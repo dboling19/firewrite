@@ -13,17 +13,17 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $name;
 
-    #[ORM\ManyToMany(targetEntity: article::class, inversedBy: 'tags')]
-    private Collection $article;
+    #[ORM\OneToMany(targetEntity: "ArticleTag", mappedBy: "tag")]
+    private $articles;
 
     public function __construct()
     {
-        $this->article = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -36,7 +36,7 @@ class Tag
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -44,25 +44,31 @@ class Tag
     }
 
     /**
-     * @return Collection<int, article>
+     * @return Collection<int, ArticleTag>
      */
-    public function getArticle(): Collection
+    public function getArticles(): Collection
     {
-        return $this->article;
+        return $this->articles;
     }
 
-    public function addArticle(article $article): self
+    public function addArticle(ArticleTag $article): static
     {
-        if (!$this->article->contains($article)) {
-            $this->article->add($article);
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setTag($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(article $article): self
+    public function removeArticle(ArticleTag $article): static
     {
-        $this->article->removeElement($article);
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getTag() === $this) {
+                $article->setTag(null);
+            }
+        }
 
         return $this;
     }
