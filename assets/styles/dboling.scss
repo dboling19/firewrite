@@ -165,7 +165,7 @@ html * {
     font-size:14px;
     font-style:italic;
   }
-
+  
   .db-title {
     font-size:20px;
     font-weight:bold;
@@ -210,11 +210,14 @@ html * {
 
   .db-container, .db-panel {
     padding:0.01em 10px;
+    display:flex;
+    flex-direction:column;
+    flex:1 0;
   }
-
+  
   .db-panel {
-    margin-top:10px;
-    margin-bottom:10px;
+    padding-top:10px;
+    padding-bottom:10px;
   }
 
   ::before, ::after {
@@ -264,7 +267,6 @@ html * {
 
   .db-card {
     box-shadow:0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-    padding: 8px 16px;
   }
 
   .db-tag-label {
@@ -490,6 +492,10 @@ html * {
     background-color:#ececec;
   }
 
+  li {
+    list-style:none;
+  }
+
   .db-container:after,.db-container:before,.db-panel:after,.db-panel:before{content:"";display:table;clear:both}
 
   .db-round-small {
@@ -645,6 +651,34 @@ html * {
 
   .db-card {
     box-shadow:0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  }
+
+  .db-tag-label {
+    background-color:#39A0ED;
+    color:white;
+    width:auto;
+    height:auto;
+    position:relative;
+    margin-top:10px;
+    font-size:13px;
+    padding-left:3px;
+    padding-right:3px;
+    padding-top:0px;
+    padding-bottom:0px;
+    display:inline-block;
+  }
+
+  .db-tag-remove-btn {
+    background-color:#e1cdff;
+    position:relative;
+    cursor:pointer;
+    top:0px;
+    margin-right:6px;
+    padding:0px 4px 2px 4px;
+  }
+  
+  .db-tag-remove-btn:hover {
+    background-color:#ffcdfe;
   }
 
   .db-notif {

@@ -1,5 +1,5 @@
 {% block comment_form %}
-<div class="db-card">
+<div class="db-panel db-card">
   <form action="{{ path('create_comment', { article_id: article.id}) }}" method="post">
     <p>
       <textarea name="body" class="db-input"></textarea>

@@ -3,15 +3,15 @@
 {% block content %}
 <div class="db-panel db-half">
   {% for article in articles %}
-    <div class="db-card">
+    <div class="db-panel db-card">
       <a class="db-title" href="{{ path('display_article', { article_id: article.id }) }}">{{ article.title }}</a>
-      <p class="db-subtitle">{{ article.user.username ~ ' ' ~ article.datetime|format_date() }}</p>
+      <p class="db-subtitle">{{ article.rating ~ ' ' ~ article.user.username ~ ' ' ~ article.datetime|format_date() }}</p>
       {{ article.summary }}
-      <div>
+      <li>
         {% for tag in article.tags %}
-          <span class="db-tag-label">{{ tag.tag.name }}</span>
+          <p class="db-tag-label">{{ tag.tag.name }}</p>
         {% endfor %}
-      </div>
+      </li>
     </div>
   {% endfor %}
 </div>
