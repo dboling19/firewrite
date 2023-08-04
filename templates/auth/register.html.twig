@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="db-middle">
+  <h1 class="db-center">Firewrite</h1>
+  <span class="db-center">Register</span>
+  <form action="{{ path('app_register') }}" method="post" class="db-form db-panel db-border db-round">
+    <p>
+      <label for="email">
+        Email
+        <input type="text" id="email" name="email" class="db-input" autocomplete="email" required/>
+      </label>
+    </p>
+    <p>
+      <label for="username">
+        Username
+        <input type="text" id="username" name="username" class="db-input" autocomplete="username" required/>
+      </label>
+    </p>
+    <p>
+      <label for="password">
+        Password
+        <input type="password" id="password" name="password" class="db-input" minlength="6" maxlength="4096" autocomplete="new-password" required/>
+      </label>
+    </p>
+    <p>
+      <label for="agree_terms">
+        <input type="checkbox" id="agree_terms" name="agree_terms" required/>
+        Agree to <a href="">Terms of Service</a> (Demo Purposes)
+      </label>
+    </p>
+    <p>
+      <button type="submit" class="db-button">Register</button>
+    </p>
+  </form>
+</div>
+{% endblock %}

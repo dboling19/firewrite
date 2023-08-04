@@ -1,0 +1,46 @@
+{% block navbar %}
+<div class="db-bar">
+  <div class="db-menu">
+    <a class="db-button db-bar-item" href="{{ path('home') }}">Home</a>
+    <a class="db-button db-bar-item" href="{{ path('create_article') }}">Write</a>
+
+
+    {% if app.user %}
+      <div class="db-dropdown db-right">
+        <button class="db-button">{{ app.user.username }}</button>
+        <div class="db-dropdown-content db-bar-block db-card">
+          <a class="db-button db-bar-item" href="{{ path('app_logout') }}">Logout</a>
+        </div>
+      </div>
+    {% else %}
+      <a href="{{ path('app_login') }}" class="db-right db-button">Login</a>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', function() {
+    select_route();
+  })
+
+  function select_route() {
+    const button = document.getElementById({{ route_name|json_encode()|raw }});
+    if (button != null)
+    {
+      button.classList.add('db-button-route');
+    }
+  }
+
+  function toggle_menu() {
+    const menu = document.querySelector('.db-menu');
+    if (menu.classList.value.includes('db-menu-opened'))
+    {
+      menu.style.display = 'none';
+      menu.classList.remove('db-menu-opened');
+    } else {
+      menu.style.display = 'block';
+      menu.classList.add('db-menu-opened');
+    }
+  }
+</script>
+{% endblock %}

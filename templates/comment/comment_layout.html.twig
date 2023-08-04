@@ -1,0 +1,12 @@
+{% block comment_layout %}
+<div class="db-panel db-card">
+  {% for comment in article.comments %}
+  <li>
+    <h4><b><a href="">{{ comment.user.username }}</a></b></h4>
+    <!-- make this the link to user profiles -->
+    <span class="db-subtitle">{{ comment.datetime|format_date() }}</span>
+    <span>{{ comment.body }}</span>
+  </li>
+  {% endfor %}
+</div>
+{% endblock %}
