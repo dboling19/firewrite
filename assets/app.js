@@ -6,7 +6,8 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/dboling.scss';
+import './styles/dboling-primary.scss';
+import '../node_modules/normalize.css';
 
 
 // start the Stimulus application

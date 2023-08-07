@@ -1,30 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<form action="{{ path('app_login') }}" method="post" class="db-form db-panel db-border db-middle db-round db-fifth">
-  <p>
-    <label for="username">
-      Email
-      <input type="text" id="username" name="_username" value="{{ last_username }}" class="db-input" required>
-    </label>
-  </p>
-  <p>
-    <label for="password">
-      Password
-      <input type="password" id="password" name="_password" class="db-input" required>
-    </label>
-  </p>
-  <p>
-    <input type="checkbox" class="db-checkbox"  id="_remember_me" name="_remember_me">
-    <label for="_remember_me">Remember Me</label>
-  <p>
+<form action="{{ path('app_login') }}" method="post" class="db-wrapper db-border db-middle db-round db-fifth">
+  <div class="db-wrapper db-container">
+    <p>
+      <label for="email">Email</label>
+      <input type="text" id="username" name="_username" value="{{ last_username }}" class="db-input db-border" required>
+    </p>
+    <p>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="_password" class="db-input db-border" required>
+    </p>
+    <span class="db-wrapper">
+      <input type="checkbox" class="db-checkbox" id="_remember_me" name="_remember_me" style="display:inline">
+      <label for="_remember_me">Remember Me</label>
+    </span>
     {% if error %}
       <span class="db-error">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
     {% endif %}
-  </p>
-  <p>
-    <button type="submit" class="db-button">Login</button>
-    <a href="{{ path('app_register') }}" style="font-size:12px;text-decoration:none;">Register Here</a>
-  </p>
+    <p class="db-wrapper">
+      <button type="submit" class="db-button db-border">Login</button>
+      <a class="db-subtitle" href="{{ path('app_register') }}">Register Here</a>
+    </p>
+  </div>
 </form>
 {% endblock %}

@@ -1,21 +1,19 @@
 {% block navbar %}
-<div class="db-bar">
-  <div class="db-menu">
-    <a class="db-button db-bar-item" href="{{ path('home') }}">Home</a>
-    <a class="db-button db-bar-item" href="{{ path('create_article') }}">Write</a>
-
-
+<div class="db-bar" id="navbar">
+  <a class="db-button" href="{{ path('home') }}">Home</a>
+  <a class="db-button" href="{{ path('create_article') }}">Write</a>
+  <span class="db-right">
     {% if app.user %}
-      <div class="db-dropdown db-right">
+      <span class="db-dropdown">
         <button class="db-button">{{ app.user.username }}</button>
-        <div class="db-dropdown-content db-bar-block db-card">
+        <div class="db-dropdown-content db-card" style="right:0;">
           <a class="db-button db-bar-item" href="{{ path('app_logout') }}">Logout</a>
         </div>
-      </div>
+      </span>
     {% else %}
-      <a href="{{ path('app_login') }}" class="db-right db-button">Login</a>
+      <a href="{{ path('app_login') }}" class="db-button">Login</a>
     {% endif %}
-  </div>
+  </span>
 </div>
 
 <script>
@@ -32,7 +30,7 @@
   }
 
   function toggle_menu() {
-    const menu = document.querySelector('.db-menu');
+    const menu = document.querySelector('#navbar');
     if (menu.classList.value.includes('db-menu-opened'))
     {
       menu.style.display = 'none';

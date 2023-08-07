@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block title %}New Article{% endblock %}
 {% block content %}
-<div class="db-panel">
-  <div class="db-card db-twothird">
-    <form action="{{ path('create_article') }}" method="post" class="db-panel">
-      <p>
-        <input type="text" name="title" class="db-input" style="width:20%;" value="Untitled Article">
-      </p>
-      <p>
-        <textarea name="body" class="db-input"></textarea>
-      </p>
-      <p>
-        <button type="submit" class="db-button">Publish Article</button>
-        <button type="submit" class="db-button">Save Draft</button>
-      </p>
-    </form>
-  </div>
+<div class="db-panel db-twothird">
+  <form action="{{ path('create_article') }}" method="post" class="db-wrapper db-container db-card">
+    <p>
+      <input type="text" name="title" class="db-input db-border db-fifth" value="Untitled Article" placeholder="Article Title" required>
+    </p>
+    <p>
+      <textarea name="body" rows="30" class="db-input db-border"></textarea>
+    </p>
+    <p>
+      <textarea name="summary" rows="4" class="db-input db-border" placeholder="Summarize your article (optional)"></textarea>
+    <p>
+      <button type="submit" class="db-button db-border">Publish Article</button>
+      <button type="submit" class="db-button db-border">Save Draft</button>
+    </p>
+  </form>
 </div>
 {% endblock %}

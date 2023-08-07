@@ -1,0 +1,11 @@
+{% block profile_preview %}
+{% if route_name == 'display_article' %}
+  {% set user = article.user %}
+{% elseif route_name == 'display_user' %}
+  {% set user = user %}
+{% endif %}
+<div class="db-wrapper db-container db-panel db-card">
+  <a href="{{ path('display_user', {user_id:article.user.id}) }}"><b>{{ article.user.username }}</b></a>
+  <li class="db-subtitle">{{ render(controller('App\\Controller\\UserController::articles_total', {user_id: user.id} )) }}</li>
+</div>
+{% endblock %}

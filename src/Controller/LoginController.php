@@ -11,7 +11,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 
 class LoginController extends AbstractController
 {
-  #[Route('/auth/login', name: 'app_login')]
+  #[Route('/auth/login/', name: 'app_login')]
   public function login(AuthenticationUtils $auth_utils): Response
   {
     // get login error if exists
@@ -30,7 +30,7 @@ class LoginController extends AbstractController
    * Logs out currently logged in user
    * Method required for functionality.  Any logout logic goes in /src/EventListener/LogoutSubscriber.php
    */
-  #[Route('/auth/logout', name: 'app_logout')]
+  #[Route('/auth/logout/', name: 'app_logout')]
   public function logout()
   {
     // these are not the methods you are looking for

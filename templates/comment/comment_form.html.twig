@@ -1,11 +1,11 @@
 {% block comment_form %}
-<div class="db-panel db-card">
+<div class="db-wrapper db-container db-card">
   <form action="{{ path('create_comment', { article_id: article.id}) }}" method="post">
     <p>
-      <textarea name="body" class="db-input"></textarea>
+      <textarea name="body" class="db-input db-border"></textarea>
     </p>
     <p>
-      <button type="submit" class="db-button">Post Comment</button>
+      <button type="submit" class="db-button db-border">Post Comment</button>
     </p>
   </form>
 </div>

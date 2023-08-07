@@ -25,6 +25,9 @@ class Article
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $summary = null;
 
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private ?int $word_count;
+
     // Rating in +1 and -1 likes
     #[ORM\Column(type: 'integer', nullable:false)]
     private ?int $rating = 0;
@@ -37,8 +40,8 @@ class Article
     private ?\DateTimeInterface $datetime;
 
     #[ORM\OneToMany(targetEntity: "ArticleTag", mappedBy: "article")]
-    #[ORM\JoinColumn(nullable: false)]
-    private $tags;
+    #[ORM\JoinColumn(nullable: true)]
+    private $tags = null;
 
     #[ORM\OneToMany(targetEntity: "Comment", mappedBy: "article")]
     private $comments;
@@ -182,6 +185,18 @@ class Article
     public function setRating(int $rating): static
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getWordCount(): ?int
+    {
+        return $this->word_count;
+    }
+
+    public function setWordCount(int $word_count): static
+    {
+        $this->word_count = $word_count;
 
         return $this;
     }

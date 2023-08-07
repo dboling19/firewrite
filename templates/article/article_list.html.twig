@@ -1,17 +1,15 @@
-{% extends 'base.html.twig' %}
-{% block title %}Home{% endblock %}
-{% block content %}
-<div class="db-panel db-half">
+{% block article_list %}
+<div class="db-wrapper db-container">
   {% for article in articles %}
-    <div class="db-panel db-card">
+    <div class="db-wrapper db-container db-panel db-card">
       <a class="db-title" href="{{ path('display_article', { article_id: article.id }) }}">{{ article.title }}</a>
-      <p class="db-subtitle">{{ article.rating ~ ' ' ~ article.user.username ~ ' ' ~ article.datetime|format_date() }}</p>
-      {{ article.summary }}
-      <li>
+      <p class="db-subtitle">{{ article.rating ~ ' '}}<a href="{{ path('display_user', {user_id:article.user.id}) }}">{{ article.user.username }}</a>{{ ' ' ~ article.datetime|format_date() }}</p>
+      <span>{{ article.summary }}</span>
+      <div class="db-wrapper db-section">
         {% for tag in article.tags %}
-          <p class="db-tag-label">{{ tag.tag.name }}</p>
+          <li class="db-tag-label">{{ tag.tag.name }}</li>
         {% endfor %}
-      </li>
+      </div>
     </div>
   {% endfor %}
 </div>

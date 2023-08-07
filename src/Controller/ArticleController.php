@@ -26,7 +26,7 @@ class ArticleController extends AbstractController
    * 
    * @author Daniel Boling
    */
-  #[Route('/articles/new', name: 'create_article')]
+  #[Route('/articles/new/', name: 'create_article')]
   public function create_article(Request $request): Response
   {
     
@@ -68,7 +68,7 @@ class ArticleController extends AbstractController
     $article = $this->article_repo->find($id);
     if (!$article)
     {
-      $this->addFlash('error', 'Invalid Article Link');
+      $this->addFlash('error', 'Invalid article link');
       return $this->redirectToRoute('home');
     }
 

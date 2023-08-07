@@ -36,6 +36,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
+    #[ORM\Column(nullable: true)]
+    private ?string $bio = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $age = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $pronouns = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $region = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $website = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $profile_image = null;
+
     #[ORM\Column(type: 'datetime', nullable: false)]
     private ?\DateTimeInterface $datetime;
 
@@ -192,6 +210,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDatetime(\DateTimeInterface $datetime): static
     {
         $this->datetime = $datetime;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?string $bio): static
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getAge(): ?string
+    {
+        return $this->age;
+    }
+
+    public function setAge(?string $age): static
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getPronouns(): ?string
+    {
+        return $this->pronouns;
+    }
+
+    public function setPronouns(?string $pronouns): static
+    {
+        $this->pronouns = $pronouns;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): static
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): static
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    public function getProfileImage(): ?string
+    {
+        return $this->profile_image;
+    }
+
+    public function setProfileImage(?string $profile_image): static
+    {
+        $this->profile_image = $profile_image;
 
         return $this;
     }

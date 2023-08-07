@@ -1,12 +1,13 @@
 {% block comment_layout %}
-<div class="db-panel db-card">
-  {% for comment in article.comments %}
-  <li>
-    <h4><b><a href="">{{ comment.user.username }}</a></b></h4>
-    <!-- make this the link to user profiles -->
-    <span class="db-subtitle">{{ comment.datetime|format_date() }}</span>
-    <span>{{ comment.body }}</span>
-  </li>
-  {% endfor %}
-</div>
+{% for comment in article.comments %}
+<li class="db-wrapper db-container db-panel db-card">
+  <a href="{{ path('display_user', {user_id:comment.user.id}) }}"><b>{{ comment.user.username }}</b></a>
+  <div>
+    <span class="db-subtitle">{{ comment.rating }}</span>
+    <span>{{ include('comment/rating_widget.html.twig') }}</span>
+  </div>
+  <div class="db-subtitle">{{ comment.datetime|format_date() }}</div>
+  <p>{{ comment.body }}</p>
+</li>
+{% endfor %}
 {% endblock %}

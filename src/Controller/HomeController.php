@@ -15,7 +15,7 @@ class HomeController extends AbstractController
   public function home(): Response
   {
     $articles = $this->article_repo->findBy([], ['id' => 'desc']);
-    return $this->render('article/article_list.html.twig', [
+    return $this->render('home/home.html.twig', [
       'articles' => $articles,
     ]);
   }

@@ -25,6 +25,11 @@ class AppFixtures extends Fixture
     $user->setPassword($this->hasher->hashPassword($user, 'password'));
     $user->setDatetime(new Datetime('now'));
     $user->setRoles(['USER_ROLE', 'ROLE_VERIFIED']);
+    $user->setBio('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+    $user->setAge('22');
+    $user->setPronouns('He/Him');
+    $user->setRegion('North America');
+    $user->setWebsite('https://github.com/dboling19/');
     $manager->persist($user);
 
 
@@ -44,6 +49,7 @@ class AppFixtures extends Fixture
     $article->setTitle('Test Article');
     $article->setBody('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
     $article->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+    $article->setWordCount(str_word_count($article->getBody(), 0));
     $article->setUser($user);
     $article->setDatetime(new Datetime('now'));
     $manager->persist($article);

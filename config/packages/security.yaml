@@ -45,7 +45,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/articles, roles: ROLE_VERIFIED }
+        - { path: ^/articles/, roles: ROLE_VERIFIED }
+        - { path: ^/comments/, roles: ROLE_VERIFIED }
 
 when@test:
     security:

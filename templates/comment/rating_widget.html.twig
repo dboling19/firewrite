@@ -1,0 +1,20 @@
+{% block comment_form %}
+<span>
+  <a style="margin-right:5px;" id="like_button" href="{{ path('update_rating', {type:'article', change:+1, article_id:article.id}) }}"><i class="fa-solid fa-fire"></i></a>
+  <a id="dislike_button" href="{{ path('update_rating', {type:'article', change:-1, article_id:article.id}) }}"><i class="fa-solid fa-droplet"></i></a>
+</span>
+
+<script>
+like_button.addEventListener('click', function() {
+  like_button.style.color = 'red';
+  like_button.classList.add('selected');
+  dislike_button.classList.remove('selected');
+});
+
+dislike_button.addEventListener('click', function() {
+  dislike_button.style.color = 'blue';
+  dislike_button.classList.add('selected');
+  like_button.classList.remove('selected');
+})
+</script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% set articles = user.articles %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+<div class="db-wrapper db-container db-panel">
+  <div class="db-wrapper db-container db-panel db-card db-twothird">
+    <div class="db-title db-margin-bottom">{{ user.username }}</div>
+    <div class="db-half">
+      <label for="user_bio">Bio</label>
+      <textarea id="user_bio" class="db-border" disabled>{{ user.bio }}</textarea>
+    </div>
+    <div class="db-third db-margin-top">
+      <label for="user_pronouns">
+        Pronouns
+        <input type="text" id="user_pronouns" class="db-input db-border" value="{{ user.pronouns }}" disabled>
+      </label>
+      <label for="user_age">
+        Age
+        <input type="text" id="user_age" class="db-input db-border" value="{{ user.age }}" disabled>
+      </label>
+      <label for="user_region">
+        Region
+        <input type="text" id="user_region" class="db-input db-border" value="{{ user.region }}" disabled>
+      </label>
+      <label for="user_website">
+        Website
+        <a id="user_website" class="db-subtitle" href="{{ user.website }}">{{ user.website }}</a>
+      </label>
+    </div>
+    <li class="db-title db-margin-top">{{ render(controller('App\\Controller\\UserController::articles_total', {user_id: user.id} )) }}</li>
+    <div class="db-wrapper db-container db-panel">
+      {{ include('article/article_list.html.twig') }}
+    </div>
+  </div>
+</div>
+{% endblock %}

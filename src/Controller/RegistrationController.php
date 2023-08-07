@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
    * 
    * @author Daniel Boling
    */
-  #[Route('/auth/register', name: 'app_register')]
+  #[Route('/auth/register/', name: 'app_register')]
   public function register(Request $request, Security $security): Response
   {
     if ($this->getUser())
@@ -92,7 +92,7 @@ class RegistrationController extends AbstractController
    * 
    * @author Daniel Boling
    */
-  #[Route('/request-verify-email', name: 'app_request_verify_email')]
+  #[Route('/request-verify-email/', name: 'app_request_verify_email')]
   public function request_verification_email(): Response
   {   
     // generate a signed url and email it to the user
@@ -115,7 +115,7 @@ class RegistrationController extends AbstractController
    * 
    * @author Daniel Boling
    */
-  #[Route('/auth/verify_email', name: 'app_verify_email')]
+  #[Route('/auth/verify_email/', name: 'app_verify_email')]
   public function verifyUserEmail(Request $request): Response
   {
     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
