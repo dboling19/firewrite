@@ -22,11 +22,7 @@
       {% block content %}{% endblock %}
       {% for label, messages in app.flashes %}
         {% for message in messages %}
-          {% if label == 'success' %}
-            <span class="db-flash-message db-notif db-panel" role="alert">{{ message }}</span>
-          {% else %}
-            <span class="db-flash-message db-error db-panel" role="alert">{{ message }}</span>
-          {% endif %}
+          <span class="db-flash-message db-notif db-panel" role="alert">{{ message }}</span>
         {% endfor %}
       {% endfor %}
     {% endblock %}

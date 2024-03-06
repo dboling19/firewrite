@@ -1,4 +1,4 @@
-{% block comment_form %}
+{% block rating_widget %}
 <span>
   <a style="margin-right:5px;" id="like_button" href="{{ path('update_rating', {type:'article', change:+1, article_id:article.id}) }}"><i class="fa-solid fa-fire"></i></a>
   <a id="dislike_button" href="{{ path('update_rating', {type:'article', change:-1, article_id:article.id}) }}"><i class="fa-solid fa-droplet"></i></a>
